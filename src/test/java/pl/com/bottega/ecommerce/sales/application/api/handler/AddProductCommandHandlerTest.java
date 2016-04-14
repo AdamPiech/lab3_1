@@ -1,7 +1,10 @@
 package pl.com.bottega.ecommerce.sales.application.api.handler;
 
 import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
 
+import pl.com.bottega.ecommerce.canonicalmodel.publishedlanguage.Id;
 import pl.com.bottega.ecommerce.sales.application.api.command.AddProductCommand;
 import pl.com.bottega.ecommerce.sales.domain.client.ClientRepository;
 import pl.com.bottega.ecommerce.sales.domain.equivalent.SuggestionService;
@@ -11,17 +14,26 @@ import pl.com.bottega.ecommerce.system.application.SystemContext;
 
 public class AddProductCommandHandlerTest {
 
+	private ReservationRepository reservationRepository;
+	private ProductRepository productRepository;
+	private SuggestionService suggestionService;
+	private ClientRepository clientRepository;
+	private SystemContext systremContext;
+	
+	private AddProductCommandHandler productCommandHandler;
+	private AddProductCommand addProductCommand;
+	
 	@Before
 	public void start() {
-        ReservationRepository reservationRepository = MyMock.reservationRepositoryMock();
-        ProductRepository productRepository = MyMock.productRepositoryMock();
-        SuggestionService suggestionService = MyMock.suggestionServiceMock();
-        ClientRepository clientRepository = MyMock.clientRepositoryMock();
-        SystemContext systremContext = MyMock.systemContextMock();
+        reservationRepository = MyMock.reservationRepositoryMock();
+        productRepository = MyMock.productRepositoryMock();
+        suggestionService = MyMock.suggestionServiceMock();
+        clientRepository = MyMock.clientRepositoryMock();
+        systremContext = MyMock.systemContextMock();
         
-        AddProductCommandHandler productCommandHandler = new AddProductCommandHandler(reservationRepository, productRepository, suggestionService, clientRepository, systremContext);
-        AddProductCommand addProductCommand = MyMock.addProductCommandMock();
+        productCommandHandler = new AddProductCommandHandler(reservationRepository, productRepository, suggestionService, clientRepository, systremContext);
+        addProductCommand = MyMock.addProductCommandMock();
 	}
-
+	
 	
 }
