@@ -26,25 +26,23 @@ import pl.com.bottega.ecommerce.sales.domain.reservation.Reservation;
 import pl.com.bottega.ecommerce.sales.domain.reservation.ReservationRepository;
 import pl.com.bottega.ecommerce.system.application.SystemContext;
 
-
-
 public class AddProductCommandHandler implements CommandHandler<AddProductCommand, Void>{
 
-
 	private ReservationRepository reservationRepository;
-	
-
 	private ProductRepository productRepository;
-	
-
 	private SuggestionService suggestionService;
-	
-
 	private ClientRepository clientRepository;
-	
-
 	private SystemContext systemContext;
 	
+	public AddProductCommandHandler(ReservationRepository reservationRepository, ProductRepository productRepository,
+			SuggestionService suggestionService, ClientRepository clientRepository, SystemContext systremContext) {
+		this.reservationRepository = reservationRepository;
+		this.productRepository = productRepository;
+		this.suggestionService = suggestionService;
+		this.clientRepository = clientRepository;
+		this.systemContext = systremContext;
+	}
+
 	@Override
 	public Void handle(AddProductCommand command) {
 		Reservation reservation = reservationRepository.load(command.getOrderId());
