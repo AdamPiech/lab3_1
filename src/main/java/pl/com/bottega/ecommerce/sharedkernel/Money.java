@@ -37,7 +37,7 @@ public class Money {
 		this(denomination, currency.getCurrencyCode());
 	}
 
-	private Money(BigDecimal denomination, String currencyCode) {
+	public Money(BigDecimal denomination, String currencyCode) {
 		this.denomination = denomination.setScale(2, RoundingMode.HALF_EVEN);
 		this.currencyCode = currencyCode;
 	}
