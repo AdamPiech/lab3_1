@@ -74,18 +74,14 @@ public class BookKeeperTest {
 	@Test
 	public void fourthTestCase() {
 		
-		ProductData productData = new ProductData(Id.generate(),
-				new Money(new BigDecimal(1000), Currency.getInstance("EUR")), "Standard", ProductType.STANDARD,
-				new Date());
-		Money totalCost = new Money(new BigDecimal(10000), Currency.getInstance("EUR"));
-		RequestItem item = new RequestItem(productData, 10, totalCost);
+		RequestItem item = new RequestItemBuilder().build();
 		invoiceRequest.add(item);
 
 		Invoice invoice = bookKeeper.issuance(invoiceRequest, taxPolicy);
-		assertThat(invoice.getGros(), Matchers.is(new Money(new BigDecimal(11000), Currency.getInstance("EUR"))));
-		assertThat(invoice.getNet(), Matchers.is(new Money(new BigDecimal(10000), Currency.getInstance("EUR"))));
-		assertThat(invoice.getItems().get(0).getGros(), Matchers.is(new Money(new BigDecimal(11000), Currency.getInstance("EUR"))));
-		assertThat(invoice.getItems().get(0).getNet(), Matchers.is(new Money(new BigDecimal(10000), Currency.getInstance("EUR"))));
+		assertThat(invoice.getGros(), Matchers.is(new Money(new BigDecimal(2000), Currency.getInstance("EUR"))));
+		assertThat(invoice.getNet(), Matchers.is(new Money(new BigDecimal(1000), Currency.getInstance("EUR"))));
+		assertThat(invoice.getItems().get(0).getGros(), Matchers.is(new Money(new BigDecimal(2000), Currency.getInstance("EUR"))));
+		assertThat(invoice.getItems().get(0).getNet(), Matchers.is(new Money(new BigDecimal(1000), Currency.getInstance("EUR"))));
 		assertThat(invoice.getItems().get(0).getTax().getAmount(), Matchers.is(new Money(new BigDecimal(1000), Currency.getInstance("EUR"))));
 		Mockito.verify(taxPolicy, Mockito.times(1)).calculateTax(Mockito.any(ProductType.class), Mockito.any(Money.class));
 	}
