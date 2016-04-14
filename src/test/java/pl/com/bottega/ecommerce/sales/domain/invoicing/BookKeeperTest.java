@@ -52,19 +52,12 @@ public class BookKeeperTest {
 	
 	@Test
 	public void secondTestCase() {
-		
-		ProductData productData = new ProductData(Id.generate(),
-				new Money(new BigDecimal(1000), Currency.getInstance("EUR")), "Standard", ProductType.STANDARD,
-				new Date());
-		Money totalCost = new Money(new BigDecimal(10000), Currency.getInstance("EUR"));
-		RequestItem item = new RequestItem(productData, 10, totalCost);
-		
-		ProductData productData2 = new ProductData(Id.generate(),
-				new Money(new BigDecimal(2000), Currency.getInstance("EUR")), "Drug", ProductType.DRUG,
-				new Date());
-		Money totalCost2 = new Money(new BigDecimal(10000), Currency.getInstance("EUR"));
-		RequestItem item2 = new RequestItem(productData2, 5, totalCost2);
+		ProductData productData = new ProductDataBuilder().build();
+		RequestItem item = new RequestItemBuilder().withProductData(productData).build();
 		invoiceRequest.add(item);
+		
+		ProductData productData2 = new ProductDataBuilder().build();
+		RequestItem item2 = new RequestItemBuilder().withProductData(productData2).build();
 		invoiceRequest.add(item2);
 
 		Invoice invoice = bookKeeper.issuance(invoiceRequest, taxPolicy);
